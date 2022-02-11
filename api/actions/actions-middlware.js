@@ -15,6 +15,24 @@ async function validateActionId(req, res, next) {
     }
 }
 
+function validateAction(req, res, next) {
+    if(!req.body.project_id || !req.body.description || !req.body.notes){
+        res.status(400).json({ message: 'project_id, description, and notes are required' }) 
+        } else{
+            next()
+        }
+    }
+
+function validateCompleted(req, res, next) {
+    if(req.body.completed !== true && req.body.completed !== false){
+        res.status(400).json({ message: 'figure it out' })
+    } else {
+        next();
+    }
+}
+
 module.exports = {
     validateActionId,
+    validateAction,
+    validateCompleted,
 }
